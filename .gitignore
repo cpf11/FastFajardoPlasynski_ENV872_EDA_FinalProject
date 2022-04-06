@@ -26,4 +26,4 @@ vignettes/*.pdf
 *.knit.md
 # R Environment Variables
 .Renviron
-FastFajardoPlasynski_ENV872_EDA_FinalProject.Rproj
+*.Rproj
