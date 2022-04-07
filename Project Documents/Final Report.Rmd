@@ -29,7 +29,7 @@ mainfont: Times New Roman
 # Set your ggplot theme
 
 # Load your datasets
-
+lamb_ewe <- read_csv("../Data/Raw/lamb_ewe_ratios_by_mountainunit.csv")
 ```
 
 
@@ -47,12 +47,22 @@ mainfont: Times New Roman
 
 # Exploratory Analysis 
 
+```{r}
+
+
+
+```
 
 
 \newpage
 
 # Analysis
 
+```{r}
+
+
+
+```
 
 
 ## Question 1: <insert specific question here and add additional subsections for additional questions below, if needed>
