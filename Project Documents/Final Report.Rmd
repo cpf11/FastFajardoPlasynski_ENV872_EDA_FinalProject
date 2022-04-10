@@ -25,14 +25,22 @@ mainfont: Times New Roman
 # Set your working directory
 
 # Load your packages
+require(lubridate)
+require(tidyverse)
+require(ggplot2)
+require(dplyr)
 
 # Set your ggplot theme
+mytheme <- theme_classic(base_size = 14) +
+  theme(axis.text = element_text(color = "black"),
+        legend.position = "top")
+theme_set(mytheme)
 
 # Load your datasets
-lamb_ewe <- read_csv("../Data/Raw/lamb_ewe_ratios_by_mountainunit.csv")
+lamb_ewe <- read.csv("../Data/Processed/lamb_ewe_wrangle.csv")
 
-lamb_ewe_wrangle<- lamb_ewe %>%
-  select()
+#Change year to date class
+lamb_ewe$year <- as.Date(as.character(lamb_ewe$year), format = "%Y")
 ```
 
 
@@ -50,10 +58,22 @@ lamb_ewe_wrangle<- lamb_ewe %>%
 
 # Exploratory Analysis 
 
-```{r}
+```{r fig.cap="Scatterplot matrix of dataset"}
+#Explore the data
 
+#Dimensions of the dataset
+print(dim(lamb_ewe))
 
+#Column names
+colnames(lamb_ewe)
 
+#Data summary
+summary(lamb_ewe)
+
+#Plot scatterplot matrix 
+plot(lamb_ewe)
+
+#Check for normality
 ```
 
 
@@ -62,22 +82,61 @@ lamb_ewe_wrangle<- lamb_ewe %>%
 # Analysis
 
 ```{r}
+#Create preliminary GLM 
+lamb_lm <- lm(data = lamb_ewe_wrangle, lamb_ewe_ratio ~ year + elevation + snow_line_elevation + 
+              snow_disappearance + snow_cover_duration + temp + precip + may_temp + winter_precip)
 
+#Summarize model 
+summary(lamb_lm)
 
+#Choose best model by AIC in a Stepwise Algorithm
+step(lamb_lm)
 
+#Best model selected based off previous step 
+new_lamb_lm<-lm(formula = lamb_ewe_ratio ~ snow_cover_duration + temp + may_temp, 
+    data = lamb_ewe_wrangle)
+
+#Summarize model 
+summary(new_lamb_lm)
 ```
 
+```{r Plotting relationships}
+#Plot relationship between lamb ewe ratio and snow cover duration
+lamb_snowcoverduration<-ggplot(lamb_ewe, aes(x = snow_cover_duration, y = lamb_ewe_ratio)) +
+  geom_point() +
+  geom_smooth(method=lm, se=FALSE) +
+  labs(x="Snow Cover Duration", y = "Lamb EWE Ratio")
+ 
+plot(lamb_snowcoverduration)
 
-## Question 1: <insert specific question here and add additional subsections for additional questions below, if needed>
+#Plot relationship between lamb ewe ratio and temperature
+lamb_temp<-ggplot(lamb_ewe, aes(x = temp, y = lamb_ewe_ratio)) +
+  geom_point() +
+  geom_smooth(method=lm, se=FALSE, col="red") +
+  labs(x="Temperature", y = "Lamb EWE Ratio")
 
-## Question 2: 
+plot(lamb_temp)
 
+#Plot relationship between lamb ewe ratio and may temperatures
+lamb_maytemp<-ggplot(lamb_ewe, aes(x = may_temp, y = lamb_ewe_ratio)) +
+  geom_point() +
+  geom_smooth(method=lm, se=FALSE, col="green") +
+  labs(x="May Temperatures", y = "Lamb EWE Ratio")
 
+plot(lamb_maytemp)
+```
+
+```{r}
+#Diagnostic Plots 
+par(mfrow = c(2, 2))
+plot(new_lamb_lm)
+```
 
 
 \newpage
 
 # Summary and Conclusions
+
 
 
 \newpage
