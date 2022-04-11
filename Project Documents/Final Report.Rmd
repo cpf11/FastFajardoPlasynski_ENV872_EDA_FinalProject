@@ -5,9 +5,10 @@ output:
     fig_caption: yes
     number_sections: yes
 geometry: margin=2.54cm
-title: "Insert title of project here"
+title: "Dall sheep reproductive success in Alaska and NW Canada"
 subtitle: "Web address for GitHub repository"
-author: "Name"
+author: "Marisa Fajardo, Clara Fast, and Julia Plasynski
+"
 fontsize: 12pt
 mainfont: Times New Roman
 
@@ -45,12 +46,14 @@ lamb_ewe$year <- as.Date(as.character(lamb_ewe$year), format = "%Y")
 
 
 # Rationale and Research Questions
+Ungulate populations can easily fluctuate in response to changing environmental conditions (Koizumi and Derocher et al., 2019). Although Dall sheep currently have stable population numbers, arctic and subarctic environments are subject to transformation due to changes in climatic conditions affecting snow cover, precipitation, and temperature (Higgins and Cassano, 2009). Because of this, it is important to evaluate reproductive success in Dall sheep to ensure stable populations. Assessment of population health will allow conservation planning to take place as needed and will assist in predicting the future of the population as environmental conditions continue to change.
 
-
+How do environmental conditions affect Dall sheep reproductive success?
 
 \newpage
 
 # Dataset Information
+This dataset consists of sheep population numbers from state and federal monitoring surveys throughout mountain ranges in Alaska and Northwestern Canada during the years 2000-2015. The climate and environmental data were estimated for the fourteen mountain ranges where the sheep were located. Daily snow was estimated using MODIS imagery, and distance to the center of the sheep range, as well as latitude, longitude, and elevation were gathered from the Global Multi-resolution Terrain Elevation Data 2010. Additionally, monthly gridded climate products from the Scenarios Network for Alaska + Arctic Planning (SNAP), were used to estimate average annual temperature, average May temperatures, total annual precipitation, and total winter (October-April) precipitation. The surveys were mostly carried out during the summer using aircraft. As raw sheep counts could not be compared between surveys due to differences in methods, locations, and areas, the variable, Lamb-to-ewe ratio, was calculated, serving as an indicator of recruitment. The dataset therefore contains estimated annual average Dall sheep lamb-to-ewe ratios from each year between 2000-2015. 
 
 
 
@@ -142,4 +145,6 @@ plot(new_lamb_lm)
 \newpage
 
 # References
-<add references here if relevant, otherwise delete this section> 
+Higgins, M. E., & Cassano, J. J. (2009). Impacts of reduced sea ice on winter Arctic atmospheric circulation, precipitation, and temperature. J. Geophys. Res., 114, D16107. doi:10.1029/2009JD011884
+
+Lambert Koizumi, C., & Derocher, A. E. (2019). Predation risk and space use of a declining dall sheep (ovis dalli dalli) population. PLOS ONE, 14(4). https://doi.org/10.1371/journal.pone.0215519 
