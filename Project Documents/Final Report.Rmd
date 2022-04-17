@@ -1,17 +1,17 @@
 ---
-output: 
+title: "Dall sheep reproductive success in Alaska and NW Canada"
+author: 'Marisa Fajardo, Clara Fast, and Julia Plasynski '
+output:
+  html_document:
+    df_print: paged
   pdf_document:
     keep_tex: yes
     fig_caption: yes
     number_sections: yes
+subtitle: Web address for GitHub repository
 geometry: margin=2.54cm
-title: "Dall sheep reproductive success in Alaska and NW Canada"
-subtitle: "Web address for GitHub repository"
-author: "Marisa Fajardo, Clara Fast, and Julia Plasynski
-"
 fontsize: 12pt
 mainfont: Times New Roman
-
 ---
 
 \newpage
@@ -24,13 +24,16 @@ mainfont: Times New Roman
 
 ```{r setup, include=FALSE}
 # Set your working directory
+#getwd()
 
 # Load your packages
 require(lubridate)
 require(tidyverse)
 require(ggplot2)
 require(dplyr)
-
+require(psych)
+require(kableExtra)
+options(knitr.table.format = "html")
 # Set your ggplot theme
 mytheme <- theme_classic(base_size = 14) +
   theme(axis.text = element_text(color = "black"),
@@ -48,12 +51,12 @@ lamb_ewe$year <- as.Date(as.character(lamb_ewe$year), format = "%Y")
 # Rationale and Research Questions
 Ungulate populations can easily fluctuate in response to changing environmental conditions (Koizumi and Derocher et al., 2019). Although Dall sheep currently have stable population numbers, arctic and subarctic environments are subject to transformation due to changes in climatic conditions affecting snow cover, precipitation, and temperature (Higgins and Cassano, 2009). Because of this, it is important to evaluate reproductive success in Dall sheep to ensure stable populations. Assessment of population health will allow conservation planning to take place as needed and will assist in predicting the future of the population as environmental conditions continue to change.
 
-How do environmental conditions affect Dall sheep reproductive success?
+Research Question: How do environmental conditions affect Dall sheep reproductive success?
 
 \newpage
 
 # Dataset Information
-This dataset consists of sheep population numbers from state and federal monitoring surveys throughout mountain ranges in Alaska and Northwestern Canada during the years 2000-2015. The climate and environmental data were estimated for the fourteen mountain ranges where the sheep were located. Daily snow was estimated using MODIS imagery, and distance to the center of the sheep range, as well as latitude, longitude, and elevation were gathered from the Global Multi-resolution Terrain Elevation Data 2010. Additionally, monthly gridded climate products from the Scenarios Network for Alaska + Arctic Planning (SNAP), were used to estimate average annual temperature, average May temperatures, total annual precipitation, and total winter (October-April) precipitation. The surveys were mostly carried out during the summer using aircraft. As raw sheep counts could not be compared between surveys due to differences in methods, locations, and areas, the variable, Lamb-to-ewe ratio, was calculated, serving as an indicator of recruitment. The dataset therefore contains estimated annual average Dall sheep lamb-to-ewe ratios from each year between 2000-2015. 
+This dataset consists of sheep population numbers from state and federal monitoring surveys throughout mountain ranges in Alaska and Northwestern Canada during the years 2000-2015. The climate and environmental data were estimated for the fourteen mountain ranges where the sheep were located. Daily snow was estimated using MODIS imagery, and distance to the center of the sheep range, as well as latitude, longitude, and elevation were gathered from the Global Multi-resolution Terrain Elevation Data 2010. Additionally, monthly gridded climate products from the Scenarios Network for Alaska + Arctic Planning (SNAP), were used to estimate average annual temperature, average May temperature, total annual precipitation, and total winter (October-April) precipitation. The surveys were mostly carried out during the summer using aircraft. As raw sheep counts could not be compared between surveys due to differences in methods, locations, and areas, the variable, Lamb-to-ewe ratio, was calculated, serving as an indicator of recruitment. The dataset therefore contains estimated annual average Dall sheep lamb-to-ewe ratios from each year between 2000-2015. 
 
 
 
@@ -61,7 +64,7 @@ This dataset consists of sheep population numbers from state and federal monitor
 
 # Exploratory Analysis 
 
-```{r fig.cap="Scatterplot matrix of dataset"}
+```{r }
 #Explore the data
 
 #Dimensions of the dataset
@@ -73,10 +76,33 @@ colnames(lamb_ewe)
 #Data summary
 summary(lamb_ewe)
 
+describe(lamb_ewe, fast = TRUE)
+
+kableExtra::kbl(lamb_ewe)
+```
+
+```{r fig.cap="Scatterplot matrix of dataset", echo = FALSE}
 #Plot scatterplot matrix 
 plot(lamb_ewe)
 
 #Check for normality
+shapiro.test(lamb_ewe$lamb_ewe_ratio)
+```
+
+
+```{r fig.cap="Lamb EWE Ratio over Time", echo = FALSE}
+plot(y=lamb_ewe$lamb_ewe_ratio, x=lamb_ewe$year)
+
+explorelambewe<-ggplot(lamb_ewe, aes(x = year, y = lamb_ewe_ratio)) +
+  geom_point() +
+  labs(x="Time", y = "Lamb EWE Ratio")
+
+plot(explorelambewe)
+```
+
+```{r fig.cap="Histogram of Lamb EWE Ratio", echo = FALSE}
+ggplot(data = lamb_ewe) +
+  geom_histogram(mapping = aes(x = lamb_ewe_ratio), binwidth = 0.1, fill="darkblue")
 ```
 
 
@@ -84,7 +110,7 @@ plot(lamb_ewe)
 
 # Analysis
 
-```{r}
+```{r include = FALSE}
 #Create preliminary GLM 
 lamb_lm <- lm(data = lamb_ewe_wrangle, lamb_ewe_ratio ~ year + elevation + snow_line_elevation + 
               snow_disappearance + snow_cover_duration + temp + precip + may_temp + winter_precip)
@@ -103,33 +129,34 @@ new_lamb_lm<-lm(formula = lamb_ewe_ratio ~ snow_cover_duration + temp + may_temp
 summary(new_lamb_lm)
 ```
 
-```{r Plotting relationships}
+```{r echo = FALSE, fig.cap="Relationship between lamb ewe ratio and snow cover duration"}
 #Plot relationship between lamb ewe ratio and snow cover duration
 lamb_snowcoverduration<-ggplot(lamb_ewe, aes(x = snow_cover_duration, y = lamb_ewe_ratio)) +
   geom_point() +
   geom_smooth(method=lm, se=FALSE) +
   labs(x="Snow Cover Duration", y = "Lamb EWE Ratio")
- 
 plot(lamb_snowcoverduration)
+```
 
+```{r echo=FALSE, fig.cap="Relationship between lamb ewe ratio and temperature (Cº)"}
 #Plot relationship between lamb ewe ratio and temperature
 lamb_temp<-ggplot(lamb_ewe, aes(x = temp, y = lamb_ewe_ratio)) +
   geom_point() +
   geom_smooth(method=lm, se=FALSE, col="red") +
-  labs(x="Temperature", y = "Lamb EWE Ratio")
-
+  labs(x="Temperature (Cº)", y = "Lamb EWE Ratio")
 plot(lamb_temp)
+```
 
-#Plot relationship between lamb ewe ratio and may temperatures
+```{r echo=FALSE, fig.cap="Relationship between lamb ewe ratio and may temperature (Cº)"}
+#Plot relationship between lamb ewe ratio and may temperature
 lamb_maytemp<-ggplot(lamb_ewe, aes(x = may_temp, y = lamb_ewe_ratio)) +
   geom_point() +
   geom_smooth(method=lm, se=FALSE, col="green") +
-  labs(x="May Temperatures", y = "Lamb EWE Ratio")
-
+  labs(x="May Temperature (Cº)", y = "Lamb EWE Ratio")
 plot(lamb_maytemp)
 ```
 
-```{r}
+```{r fig.cap="Diagnostic plots of final model", echo = FALSE}
 #Diagnostic Plots 
 par(mfrow = c(2, 2))
 plot(new_lamb_lm)
