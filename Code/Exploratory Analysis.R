@@ -11,7 +11,7 @@ summary(lamb_ewe)
 
 #Creating Summary Table for Lamb Data
 total_summary_lamb<-describe(lamb_ewe, fast = TRUE)
-kable(total_summary_lamb, caption = "Summary of Lamb Dataset")
+kable(total_summary_lamb, caption = "Summary Statistics of Lamb Dataset")
 
 #Creating Smaller Summary Table for Lamb EWE Ratio
 summary_lambratio <- lamb_ewe %>%
@@ -38,8 +38,6 @@ plot(explorelambewe)
 ggplot(data = lamb_ewe) +
   geom_histogram(mapping = aes(x = lamb_ewe_ratio), binwidth = 0.1, fill="darkblue") +
   labs(x="Lamb EWE Ratio")
-
-
 
 
 
