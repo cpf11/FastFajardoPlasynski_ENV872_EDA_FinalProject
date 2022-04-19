@@ -32,7 +32,10 @@ require(tidyverse)
 require(ggplot2)
 require(dplyr)
 require(psych)
+
 require(kableExtra)
+require(knitr)
+
 options(knitr.table.format = "html")
 # Set your ggplot theme
 mytheme <- theme_classic(base_size = 14) +
@@ -79,6 +82,8 @@ summary(lamb_ewe)
 describe(lamb_ewe, fast = TRUE)
 
 kableExtra::kbl(lamb_ewe)
+
+kable(lamb_ewe, caption = "Summary of Lamb Dataset")
 ```
 
 ```{r fig.cap="Scatterplot matrix of dataset", echo = FALSE}
@@ -91,8 +96,6 @@ shapiro.test(lamb_ewe$lamb_ewe_ratio)
 
 
 ```{r fig.cap="Lamb EWE Ratio over Time", echo = FALSE}
-plot(y=lamb_ewe$lamb_ewe_ratio, x=lamb_ewe$year)
-
 explorelambewe<-ggplot(lamb_ewe, aes(x = year, y = lamb_ewe_ratio)) +
   geom_point() +
   labs(x="Time", y = "Lamb EWE Ratio")
@@ -102,7 +105,8 @@ plot(explorelambewe)
 
 ```{r fig.cap="Histogram of Lamb EWE Ratio", echo = FALSE}
 ggplot(data = lamb_ewe) +
-  geom_histogram(mapping = aes(x = lamb_ewe_ratio), binwidth = 0.1, fill="darkblue")
+  geom_histogram(mapping = aes(x = lamb_ewe_ratio), binwidth = 0.1, fill="darkblue") +
+labs(x="Lamb EWE Ratio")
 ```
 
 
@@ -112,7 +116,7 @@ ggplot(data = lamb_ewe) +
 
 ```{r include = FALSE}
 #Create preliminary GLM 
-lamb_lm <- lm(data = lamb_ewe_wrangle, lamb_ewe_ratio ~ year + elevation + snow_line_elevation + 
+lamb_lm <- lm(data = lamb_ewe, lamb_ewe_ratio ~ year + elevation + snow_line_elevation + 
               snow_disappearance + snow_cover_duration + temp + precip + may_temp + winter_precip)
 
 #Summarize model 
@@ -123,7 +127,7 @@ step(lamb_lm)
 
 #Best model selected based off previous step 
 new_lamb_lm<-lm(formula = lamb_ewe_ratio ~ snow_cover_duration + temp + may_temp, 
-    data = lamb_ewe_wrangle)
+    data = lamb_ewe)
 
 #Summarize model 
 summary(new_lamb_lm)
