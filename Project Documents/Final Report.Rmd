@@ -31,9 +31,6 @@ require(lubridate)
 require(tidyverse)
 require(ggplot2)
 require(dplyr)
-require(psych)
-
-require(kableExtra)
 require(knitr)
 
 options(knitr.table.format = "html")
@@ -43,7 +40,7 @@ mytheme <- theme_classic(base_size = 14) +
         legend.position = "top")
 theme_set(mytheme)
 
-# Load your datasets
+# Load wrangled dataset
 lamb_ewe <- read.csv("../Data/Processed/lamb_ewe_wrangle.csv")
 
 #Change year to date class
@@ -68,7 +65,7 @@ This dataset consists of sheep population numbers from state and federal monitor
 # Exploratory Analysis 
 
 ```{r }
-#Explore the data
+#### Explore the data
 
 #Dimensions of the dataset
 print(dim(lamb_ewe))
@@ -79,11 +76,15 @@ colnames(lamb_ewe)
 #Data summary
 summary(lamb_ewe)
 
-describe(lamb_ewe, fast = TRUE)
+#Creating Summary Table for Lamb Data
+total_summary_lamb<-describe(lamb_ewe, fast = TRUE)
+kable(total_summary_lamb, caption = "Summary of Lamb Dataset")
 
-kableExtra::kbl(lamb_ewe)
+#Creating Smaller Summary Table for Lamb EWE Ratio
+summary_lambratio <- lamb_ewe %>%
+  summarise(mean.ratio=mean(lamb_ewe_ratio), minimum.ratio=min(lamb_ewe_ratio), maximum.ratio=max(lamb_ewe_ratio), sd.ratio=sd(lamb_ewe_ratio))
 
-kable(lamb_ewe, caption = "Summary of Lamb Dataset")
+knitr::kable(summary_lambratio, caption = "Lamb EWE Ratio: Summary Table")
 ```
 
 ```{r fig.cap="Scatterplot matrix of dataset", echo = FALSE}
@@ -96,6 +97,7 @@ shapiro.test(lamb_ewe$lamb_ewe_ratio)
 
 
 ```{r fig.cap="Lamb EWE Ratio over Time", echo = FALSE}
+#Generate plot of lamb EWE ratio against time 
 explorelambewe<-ggplot(lamb_ewe, aes(x = year, y = lamb_ewe_ratio)) +
   geom_point() +
   labs(x="Time", y = "Lamb EWE Ratio")
@@ -104,6 +106,7 @@ plot(explorelambewe)
 ```
 
 ```{r fig.cap="Histogram of Lamb EWE Ratio", echo = FALSE}
+#Generate histogram of lamb EWE ratio
 ggplot(data = lamb_ewe) +
   geom_histogram(mapping = aes(x = lamb_ewe_ratio), binwidth = 0.1, fill="darkblue") +
 labs(x="Lamb EWE Ratio")
@@ -178,4 +181,8 @@ plot(new_lamb_lm)
 # References
 Higgins, M. E., & Cassano, J. J. (2009). Impacts of reduced sea ice on winter Arctic atmospheric circulation, precipitation, and temperature. J. Geophys. Res., 114, D16107. doi:10.1029/2009JD011884
 
+Kagata, H., & Ohgushi, T. (2005). Bottom-up trophic cascades and material transfer in Terrestrial Food Webs. Ecological Research, 21(1), 26–34. https://doi.org/10.1007/s11284-005-0124-z 
+
 Lambert Koizumi, C., & Derocher, A. E. (2019). Predation risk and space use of a declining dall sheep (ovis dalli dalli) population. PLOS ONE, 14(4). https://doi.org/10.1371/journal.pone.0215519 
+
+Post, E., & Forchhammer, M. C. (2007). Climate change reduces reproductive success of an Arctic herbivore through trophic mismatch. Phil. Trans. R. Soc. B, 363(1501), 2367–2373. doi:10.1098/rstb.2007.2207 
