@@ -19,11 +19,3 @@ lamb_ewe_wrangle
 
 write.csv(lamb_ewe_wrangle, row.names = FALSE,
           file = "./Data/Processed/lamb_ewe_wrangle.csv")
-
-
-
-
-
-
-
-
