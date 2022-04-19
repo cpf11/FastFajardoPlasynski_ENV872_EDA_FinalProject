@@ -2,12 +2,12 @@
 title: "Dall sheep reproductive success in Alaska and NW Canada"
 author: 'Marisa Fajardo, Clara Fast, and Julia Plasynski '
 output:
-  html_document:
-    df_print: paged
   pdf_document:
     keep_tex: yes
     fig_caption: yes
     number_sections: yes
+  html_document:
+    df_print: paged
 subtitle: Web address for GitHub repository
 geometry: margin=2.54cm
 fontsize: 12pt
