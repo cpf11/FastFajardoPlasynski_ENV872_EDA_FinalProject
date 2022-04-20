@@ -61,7 +61,7 @@ Question 1: How do environmental conditions affect Dall sheep reproductive succe
 
 # Dataset Information
 
-For our analysis, we utilized a dataset called the Arctic-Boreal Vulnerability Experiment (ABoVE): Dall Sheep Lamb Recruitment and Climate Data in Alaska and NW Canada, 2000-2015. We retrieved the data from the NASA Earth Data site using their download data tool. We downloaded the lamb_ewe_ratios_by_mountainunit CSV file, which can be found on the GitHub Repository, under the “Raw” data folder. More information about the dataset can be found in Table 1. 
+For our analysis, we utilized a dataset called the Arctic-Boreal Vulnerability Experiment (ABoVE): Dall Sheep Lamb Recruitment and Climate Data in Alaska and NW Canada, 2000-2015. We retrieved the data from the NASA Earth Data site using their download data tool. We downloaded the lamb_ewe_ratios_by_mountainunit CSV file, which can be found on the GitHub Repository, under the “Raw” data folder. More information about the dataset can be found in Table 1 and 2. 
 
 This dataset consists of sheep population numbers from state and federal monitoring surveys throughout mountain ranges in Alaska and Northwestern Canada during the years 2000-2015. The climate and environmental data were estimated for the fourteen mountain ranges where the sheep were located. Daily snow was estimated using MODIS imagery, and distance to the center of the sheep range, as well as latitude, longitude, and elevation were gathered from the Global Multi-resolution Terrain Elevation Data 2010. Additionally, monthly gridded climate products from the Scenarios Network for Alaska + Arctic Planning (SNAP), were used to estimate average annual temperature, average May temperatures, total annual precipitation, and total winter (October-April) precipitation. The surveys were carried out primarily during the summer using aircraft. As raw sheep counts could not be compared between surveys due to differences in methods, locations, and areas, the variable, Lamb-to-ewe ratio, was calculated, serving as an indicator of recruitment. The dataset therefore contains estimated annual average Dall sheep lamb-to-ewe ratios from each year between 2000-2015. 
 
@@ -109,22 +109,7 @@ We first changed the independent variable, year, to a date class using the as.Da
 After wrangling the dataset, we created the “Processed” datafile. With our variables of interest, we created a scatterplot matrix to identify patterns within the data. The scatterplot matrix (Figure 1) allows us a better visualization of the relationships within the dataset.
 To check the dataset for normality, a Shapiro-Wilk test was performed and did not indicate evidence of non-normality (W= 0.99606, p=0.9154). Therefore, we fail to reject the null hypothesis that states the variables are normally distributed. 
 
-For further analysis, we plotted time against the dependent variable, lamb EWE ratio (Figure 2), and plotted a histogram of lamb EWE ratio (Figure 3). These figures further signify evidence of normality in the dataset.
-
-
-```{r echo=FALSE}
-#### Explore the data
-
-#Creating Summary Table for Lamb Data
-total_summary_lamb<-describe(lamb_ewe, fast = TRUE)
-knitr::kable(total_summary_lamb, caption = "Summary Statistics of Lamb Dataset")
-
-#Creating Smaller Summary Table for Lamb EWE Ratio
-summary_lambratio <- lamb_ewe %>%
-  summarise(mean.ratio=mean(lamb_ewe_ratio), minimum.ratio=min(lamb_ewe_ratio), maximum.ratio=max(lamb_ewe_ratio), sd.ratio=sd(lamb_ewe_ratio))
-
-knitr::kable(summary_lambratio, caption = "Lamb EWE Ratio: Summary Table")
-```
+For further analysis, we plotted time against the dependent variable, lamb EWE ratio (Figure 2), and plotted a histogram of lamb EWE ratio (Figure 3). These figures further signify evidence of normality in the dataset. Finally, the summary tables provide summary statistics for the variables included in the wrangled dataset, and provide a closer look at the summary statistics for Lamb EWE ratio (Table 3 and 4). 
 
 ```{r fig.cap="Scatterplot matrix of dataset", echo = FALSE}
 #Plot scatterplot matrix 
@@ -148,7 +133,19 @@ ggplot(data = lamb_ewe) +
 labs(x="Lamb EWE Ratio")
 ```
 
+```{r echo=FALSE}
+#### Explore the data
 
+#Creating Summary Table for Lamb Data
+total_summary_lamb<-describe(lamb_ewe, fast = TRUE)
+knitr::kable(total_summary_lamb, caption = "Table 3:Summary Statistics of Lamb Dataset")
+
+#Creating Smaller Summary Table for Lamb EWE Ratio
+summary_lambratio <- lamb_ewe %>%
+  summarise(mean.ratio=mean(lamb_ewe_ratio), minimum.ratio=min(lamb_ewe_ratio), maximum.ratio=max(lamb_ewe_ratio), sd.ratio=sd(lamb_ewe_ratio))
+
+knitr::kable(summary_lambratio, caption = "Table 4: Lamb EWE Ratio: Summary Table")
+```
 \newpage
 
 # Analysis
