@@ -100,7 +100,7 @@ Table 2: Raw Dataset Information
 #Data Wrangling
 We first changed the independent variable, year, to a date class using the as.Date function. A pipe function was used to select the independent variables of interest: mountain unit, year, lamb ewe ratio, elevation, snow line elevation, snow disappearance, snow cover duration, temp, precipitation, May temperature, and winter precipitation. The explanatory variables of latitude, longitude, and distance were all removed as mountain unit was the only data necessary to analyze location. Sheep density was removed as an independent variable, as a large amount of data points were missing from this column. The pipe function dropped NA’s from the snow line elevation column to ensure that all data points were readable. The remaining variables included in the processed dataset are included in Table 3. 
 
-Processed Dataset:
+
 Column name | Description | Class of data | Unit
 ------------- | ------------- | ------------- | ------------- 
 Mountain unit | 14 mountain ranges divided into 24 mountain units for the study | Character |
