@@ -1,5 +1,8 @@
 ####### EXPLORE THE DATA
 
+#Table for Data Structure
+
+
 #Dimensions of the dataset
 print(dim(lamb_ewe))
 
@@ -11,7 +14,7 @@ summary(lamb_ewe)
 
 #Creating Summary Table for Lamb Data
 total_summary_lamb<-describe(lamb_ewe, fast = TRUE)
-kable(total_summary_lamb, caption = "Summary Statistics of Lamb Dataset")
+knitr::kable(total_summary_lamb, caption = "Summary Statistics of Lamb Dataset")
 
 #Creating Smaller Summary Table for Lamb EWE Ratio
 summary_lambratio <- lamb_ewe %>%
@@ -25,7 +28,6 @@ plot(lamb_ewe)
 
 #Check for normality
 shapiro.test(lamb_ewe$lamb_ewe_ratio)
-
 
 #Plot lamb EWE ratio against time 
 explorelambewe<-ggplot(lamb_ewe, aes(x = year, y = lamb_ewe_ratio)) +

@@ -18,7 +18,10 @@ new_lamb_lm<-lm(formula = lamb_ewe_ratio ~ snow_cover_duration + temp + may_temp
 #Summarize model 
 summary(new_lamb_lm)
 
-
-lm(peer ~ 1 + doc_accept + gre_verbal, data = educ) %>%
+#Generate model table 
+lm(formula = lamb_ewe_ratio ~ snow_cover_duration + temp + may_temp, 
+   data = lamb_ewe) %>%
   tidy() %>%
-  kable()
+  kable(caption = "Linear Regression Results")
+
+

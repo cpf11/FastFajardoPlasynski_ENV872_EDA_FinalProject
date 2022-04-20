@@ -65,8 +65,7 @@ For our analysis, we utilized a dataset called the Arctic-Boreal Vulnerability E
 
 This dataset consists of sheep population numbers from state and federal monitoring surveys throughout mountain ranges in Alaska and Northwestern Canada during the years 2000-2015. The climate and environmental data were estimated for the fourteen mountain ranges where the sheep were located. Daily snow was estimated using MODIS imagery, and distance to the center of the sheep range, as well as latitude, longitude, and elevation were gathered from the Global Multi-resolution Terrain Elevation Data 2010. Additionally, monthly gridded climate products from the Scenarios Network for Alaska + Arctic Planning (SNAP), were used to estimate average annual temperature, average May temperatures, total annual precipitation, and total winter (October-April) precipitation. The surveys were carried out primarily during the summer using aircraft. As raw sheep counts could not be compared between surveys due to differences in methods, locations, and areas, the variable, Lamb-to-ewe ratio, was calculated, serving as an indicator of recruitment. The dataset therefore contains estimated annual average Dall sheep lamb-to-ewe ratios from each year between 2000-2015. 
 
-```{r echo=FALSE}
-Detail         | Description | 
+Detail         | Description 
 ---------------|-------------- 
 Data Source    | NASA Earth Data
 Dataset Name   | Arctic-Boreal Vulnerability Experiment (ABoVE): Dall Sheep Lamb Recruitment and Climate Data in Alaska and NW Canada
@@ -74,15 +73,14 @@ Retrieved From | https://daac.ornl.gov/cgi-bin/dsviewer.pl?ds_id=1640
 Variables Used | Mountain unit, year, lamb_ewe_ratio, elevation, snow line elevation, snow disappearance, snow cover duration, temp,  precip, may temperature, winter precipitation
 Date Range     | 2000-2015
 
-```
+Table 1: Database information 
 
-```{r}
-Column name         | Description | Class of data | Unit
--------------       | ------------- 
-Mountain unit       | 14 mountain ranges divided into 24 mountain units for the study | Character |
-Year                | 2000-2015 | Double |
-Surveys             | # of surveys |Double |
-Elevation           | Mean mountain unit elevation | Double | m
+Column name | Description | Class of data | Unit
+------------- | ------------- | ------------- | ------------- 
+Mountain unit | 14 mountain ranges divided into 24 mountain units for the study | Character |
+Year  | 2000-2015 | Double |
+Surveys | # of surveys |Double |
+Elevation | Mean mountain unit elevation | Double | m
 Snow line elevation | Elevation on May 15 | Double | m
 Snow disappearance | day of year mean  | Double |
 Snow cover duration | mean days  | Double |
@@ -96,11 +94,28 @@ Distance | from center point of each point of each mountain unit to range center
 Sheep density | adult sheep/survey area | Double | adult sheep/km2
 Lamb ewe ratio | ratio of lambs to female sheep | Double |
 
-```
-
+Table 2: Raw Dataset Information
 
 #Data Wrangling
-We first changed the independent variable, year, to a date class using the as.Date function. A pipe function was used to select the independent variables of interest: mountain unit, year, lamb ewe ratio, elevation, snow line elevation, snow disappearance, snow cover duration, temp, precipitation, May temperature, and winter precipitation. The explanatory variables of latitude, longitude, and distance were all removed as mountain unit was the only data necessary to analyze location. Sheep density was removed as an independent variable, as a large amount of data points were missing from this column. The pipe function dropped NA’s from the snow line elevation column to ensure that all data points were readable. 
+We first changed the independent variable, year, to a date class using the as.Date function. A pipe function was used to select the independent variables of interest: mountain unit, year, lamb ewe ratio, elevation, snow line elevation, snow disappearance, snow cover duration, temp, precipitation, May temperature, and winter precipitation. The explanatory variables of latitude, longitude, and distance were all removed as mountain unit was the only data necessary to analyze location. Sheep density was removed as an independent variable, as a large amount of data points were missing from this column. The pipe function dropped NA’s from the snow line elevation column to ensure that all data points were readable. The remaining variables included in the processed dataset are included in Table 3. 
+
+Processed Dataset:
+Column name | Description | Class of data | Unit
+------------- | ------------- | ------------- | ------------- 
+Mountain unit | 14 mountain ranges divided into 24 mountain units for the study | Character |
+Year | 2000-2015 | Date |
+Surveys | # of surveys |Double |
+Elevation| Mean mountain unit elevation | Double | m
+Snow line elevation | Elevation on May 15 | Double | m
+Snow disappearance | day of year mean  | Double |
+Snow cover duration | mean days  | Double |
+Temperature | Annual average temperature for that year | Double | ºC
+Precipitation | total annual precipitation for that year | Double | mm
+May temperatures | Average temperature in May for that year | Double | ºC
+Winter precipitation | Total winter (oct-april) precipitation preceding lambing season in that year | Double | mm
+Lamb ewe ratio | ratio of lambs to female sheep | Double |
+
+Table 3: Processed Dataset Information 
 
 \newpage
 
@@ -138,13 +153,13 @@ labs(x="Lamb EWE Ratio")
 
 #Creating Summary Table for Lamb Data
 total_summary_lamb<-describe(lamb_ewe, fast = TRUE)
-knitr::kable(total_summary_lamb, caption = "Table 3:Summary Statistics of Lamb Dataset")
+knitr::kable(total_summary_lamb, caption = "Table 4:Summary Statistics of Lamb Dataset")
 
 #Creating Smaller Summary Table for Lamb EWE Ratio
 summary_lambratio <- lamb_ewe %>%
   summarise(mean.ratio=mean(lamb_ewe_ratio), minimum.ratio=min(lamb_ewe_ratio), maximum.ratio=max(lamb_ewe_ratio), sd.ratio=sd(lamb_ewe_ratio))
 
-knitr::kable(summary_lambratio, caption = "Table 4: Lamb EWE Ratio: Summary Table")
+knitr::kable(summary_lambratio, caption = "Table 5: Lamb EWE Ratio: Summary Table")
 ```
 
 \newpage
