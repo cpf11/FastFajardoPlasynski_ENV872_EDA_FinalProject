@@ -50,9 +50,12 @@ lamb_ewe$year <- as.Date(as.character(lamb_ewe$year), format = "%Y")
 
 
 # Rationale and Research Questions
-Ungulate populations can easily fluctuate in response to changing environmental conditions (Koizumi and Derocher et al., 2019). Although Dall sheep currently have stable population numbers, arctic and subarctic environments are subject to transformation due to changes in climatic conditions affecting snow cover, precipitation, and temperature (Higgins and Cassano, 2009). Because of this, it is important to evaluate reproductive success in Dall sheep to ensure stable populations. Assessment of population health will allow conservation planning to take place as needed and will assist in predicting the future of the population as environmental conditions continue to change.
+Ungulate populations can easily fluctuate in response to changing environmental conditions (Koizumi and Derocher et al., 2019). Although dall sheep currently have stable population numbers, arctic and subarctic environments are subject to transformation due to changes in climatic conditions affecting snow cover, precipitation, and temperature (Higgins and Cassano, 2009). Changes in these conditions can affect resource availability and vegetation cover, influencing the success and reproductive abilities of herbivore populations (Post and Forchhaammer, 2007). Fluctuations in herbivore populations can result in a bottom up trophic cascade, further impacting community balance and carnivore population numbers (Kagata and Ohgushi, 2005).  Because of this, it is important to evaluate reproductive success in dall sheep to ensure stable populations of all organisms in arctic and subarctic North American ecosystems. Assessment of population health will allow conservation planning to take place as needed and will assist in predicting the future of the population as environmental conditions continue to change.
 
-Research Question: How do environmental conditions affect Dall sheep reproductive success?
+In this project, we will evaluate the effects of environmental conditions on dall sheep reproductive success using multiple linear regression. We aim to identify several factors of statistical significance to create an understanding of how fluctuating conditions will affect dall sheep in the future. We expect that decreased snow cover, decreased precipitation, and increased temperature will have a negative relationship with reproductive success. 
+
+
+Question 1: How do environmental conditions affect Dall sheep reproductive success?
 
 \newpage
 
@@ -171,11 +174,20 @@ plot(new_lamb_lm)
 
 # Summary and Conclusions
 
+In summary, we found that some climatic conditions have a significant effect on dall sheep reproductive success. Our results indicate that reproductive success is reduced when overall temperatures are high, likely due to adaptations of arctic species to thrive in colder conditions with higher snow cover. This aligns with our findings that reproductive success increases when snow cover duration is longer, indicating again that colder overall temperatures benefit reproductive success of dall sheep. Reproductive success also increased in response to higher May temperature, indicating the importance of seasonal temperature variation for population success. Survivability of offspring likely depends heavily on seasonal vegetation, therefore high temperatures in isolated months such as May are an important factor in maintaining population stability. 
 
+Our results provide significant implications for future population management. Arctic environments are experiencing increasing temperatures at substantially higher rates than other areas, a trend that will also contribute to decreased snow cover in Arctic North America (Corell, 2006). As climate change continues to affect environmental conditions, we can expect dall sheep populations to decline in the future due to evidence that increased temperatures and shorter snow cover duration negatively impacts reproductive success. Because of this, it is essential to form population management plans immediately to account for the expected population decline and subsequent trophic cascade. Management plans can include protected natural areas for these populations, potentially at higher elevations and latitudes to accommodate for migration to colder areas as temperatures rise. 
+
+# Future Recommendations
+
+For future research and analysis, more statistical tests should be completed to look for interactions between variables. Additionally, more data could be used in conjunction with this dataset to further analyze our research question. Data on the rate of temperature and snow cover duration change in Arctic North America can be used in conjunction with this data set to estimate how heavily dall sheep reproductive success will be affected in the future. 
 
 \newpage
 
 # References
+
+Corell, R. W. (2006). Challenges of climate change: An arctic perspective. AMBIO: A Journal of the Human Environment, 35(4), 148–152. https://doi.org/10.1579/0044-7447(2006)35[148:coccaa]2.0.co;2 
+
 Higgins, M. E., & Cassano, J. J. (2009). Impacts of reduced sea ice on winter Arctic atmospheric circulation, precipitation, and temperature. J. Geophys. Res., 114, D16107. doi:10.1029/2009JD011884
 
 Kagata, H., & Ohgushi, T. (2005). Bottom-up trophic cascades and material transfer in Terrestrial Food Webs. Ecological Research, 21(1), 26–34. https://doi.org/10.1007/s11284-005-0124-z 
