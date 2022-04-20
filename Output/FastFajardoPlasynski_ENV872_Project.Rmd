@@ -127,7 +127,7 @@ Table 3: Processed Dataset Information
 # Exploratory Analysis 
 
 The wrangled “Processed” datafile was used for the rest of the investigation. The variables of interest were used to create a scatterplot matrix to identify patterns within the data. The scatterplot matrix (Figure 1) allows for a better visualization of the relationships within the dataset.
-To check the dataset for normality, a Shapiro-Wilk test was performed and did not indicate evidence of non-normality (W= 0.99606, p=0.9154). Therefore, we fail to reject the null hypothesis that states the variables are normally distributed. 
+To check the dataset for normality, a Shapiro-Wilk test was performed and did not indicate evidence of non-normality (W= 0.99606, p=0.9154) (Code Folder: Exploratory Analysis). Therefore, we fail to reject the null hypothesis that states the variables are normally distributed. 
 
 For further analysis, we plotted time against the dependent variable, lamb EWE ratio (Figure 2), and plotted a histogram of lamb EWE ratio (Figure 3). These figures further signify evidence of normality in the dataset. Finally, the summary tables provide summary statistics for the variables included in the wrangled dataset, and provide a closer look at the summary statistics for Lamb EWE ratio (Table 3 and 4). 
 
@@ -136,6 +136,7 @@ For further analysis, we plotted time against the dependent variable, lamb EWE r
 plot(lamb_ewe)
 ```
 
+\newpage
 
 ```{r fig.cap="Lamb EWE Ratio over Time", echo = FALSE}
 #Generate plot of lamb EWE ratio against time 
@@ -172,13 +173,13 @@ knitr::kable(summary_lambratio, caption = "Lamb EWE Ratio: Summary Table")
 
 # Analysis
 
-The best model, as chosen by AIC in a stepwise algorithm, included the following explanatory variables: snow cover duration, temperature, and May temperature. The final model indicates that about 7% (adjusted r-squared=0.06929) of the variation in the dependent variable is explained by the independent variables. As indicated by the F-statistic, the variables in the model are significantly different from 0, demonstrating that the linear regression model fits the data better than a model without any explanatory variables (Table 5). 
+The best model, as chosen by AIC in a stepwise algorithm, included the following explanatory variables: snow cover duration, temperature, and May temperature. The final model indicates that about 7% (adjusted r-squared=0.06929) of the variation in the dependent variable is explained by the independent variables. As indicated by the F-statistic, the variables in the model are significantly different from 0, demonstrating that the linear regression model fits the data better than a model without any explanatory variables (Table 6). 
 
-The three explanatory variables were all statistically significant in the final model, indicating that they have a statistically significant effect on lamb ewe ratio. With a one unit increase in snow cover duration, lamb ewe ratio increased by 0.293678 (snow cover duration: estimate = 0.293678, p = 0.86777) (Table 5). This slight positive relationship between lamb ewe ratio and snow cover duration is visible in the plot, with the line of best fit sloping upwards (Figure 4). 
+The three explanatory variables were all statistically significant in the final model, indicating that they have a statistically significant effect on lamb ewe ratio. With a one unit increase in snow cover duration, lamb ewe ratio increased by 0.293678 (snow cover duration: estimate = 0.293678, p = 0.86777) (Table 6). This slight positive relationship between lamb ewe ratio and snow cover duration is visible in the plot, with the line of best fit sloping upwards (Figure 4). 
 
-With a one unit increase in temperature, lamb ewe ratio decreased by 0.013754 (temperature: estimate = -0.013754, p = 0.00140) (Table 5). Given that this negative relationship between the two variables is very slight, the line of best fit does not demonstrate this negative relationship and instead appears to be a plateau (Figure 5). 
+With a one unit increase in temperature, lamb ewe ratio decreased by 0.013754 (temperature: estimate = -0.013754, p = 0.00140) (Table 6). Given that this negative relationship between the two variables is very slight, the line of best fit does not demonstrate this negative relationship and instead appears to be a plateau (Figure 5). 
 
-With a one unit increase in May temperature, lamb ewe ratio increased by 0.020645 (May temperature: estimate = 0.020645, p = 6.79e-05) (Table 5). This positive relationship between lamb ewe ratio and May temperature is visible in the plot (Figure 5), with the line of best fit sloping upwards. The relationship between these two variables is noticeably more significant in this plot than for the plot comparing lamb ewe ratio and snow cover duration (Figure 4). 
+With a one unit increase in May temperature, lamb ewe ratio increased by 0.020645 (May temperature: estimate = 0.020645, p = 6.79e-05) (Table 6). This positive relationship between lamb ewe ratio and May temperature is visible in the plot (Figure 6), with the line of best fit sloping upwards. The relationship between these two variables is noticeably more significant in this plot than for the plot comparing lamb ewe ratio and snow cover duration (Figure 4). 
 
 After selecting the model, it was crucial to check whether it fit the assumptions of a linear regression. The assumptions were checked using the diagnostic plots of the final model (Figure 7). The first plot, “Residuals vs Fitted” is used to check whether there is a linear relationship/linearity. As the red line does not severely depart from the horizontal dotted line, this assumption is met. To determine whether the residuals are normally distributed, the “Normal Q-Q” plot is examined. This plot indicates that the residuals are normally distributed as the points tend to follow the straight line. The “Scale-Location” plot is used to determine whether the model meets the assumption of homoscedasticity (equal variance of residuals). As the residuals are spread randomly along the horizontal line, the assumption is fulfilled. Lastly, to check that there are no influential values in the dataset, the “Residuals vs Leverage” plot is examined. While there are some points that appear to be distanced from the majority of the points, they do not fall outside Cook’s distance - indicating that there are no influential points. 
 
@@ -239,6 +240,8 @@ plot(lamb_maytemp)
 par(mfrow = c(2, 2))
 plot(new_lamb_lm)
 ```
+
+
 
 \newpage
 

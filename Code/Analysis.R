@@ -1,5 +1,6 @@
 ### CREATING MODEL & ANALYSIS 
-
+require(stargazer)
+require(ggplot2)
 
 #Create preliminary GLM 
 lamb_lm <- lm(data = lamb_ewe, lamb_ewe_ratio ~ year + elevation + snow_line_elevation + 
