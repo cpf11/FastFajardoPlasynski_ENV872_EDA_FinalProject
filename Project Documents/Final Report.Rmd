@@ -34,6 +34,7 @@ require(ggplot2)
 require(dplyr)
 require(knitr)
 require(broom)
+require(psych)
 
 # Set your ggplot theme
 mytheme <- theme_classic(base_size = 14) +
@@ -173,6 +174,10 @@ The three explanatory variables were all statistically significant in the final 
 With a one unit increase in temperature, lamb ewe ratio decreased by 0.013754 (temperature: estimate = -0.013754, p = 0.00140) (Table 5). Given that this negative relationship between the two variables is very slight, the line of best fit does not demonstrate this negative relationship and instead appears to be a plateau (Figure 5). 
 
 With a one unit increase in May temperature, lamb ewe ratio increased by 0.020645 (May temperature: estimate = 0.020645, p = 6.79e-05) (Table 5). This positive relationship between lamb ewe ratio and May temperature is visible in the plot (Figure 5), with the line of best fit sloping upwards. The relationship between these two variables is noticeably more significant in this plot than for the plot comparing lamb ewe ratio and snow cover duration (Figure 4). 
+
+
+
+
 ```{r include = FALSE}
 #Create preliminary GLM 
 lamb_lm <- lm(data = lamb_ewe, lamb_ewe_ratio ~ year + elevation + snow_line_elevation + 
