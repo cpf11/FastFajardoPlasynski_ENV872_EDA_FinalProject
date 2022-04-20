@@ -18,10 +18,34 @@ new_lamb_lm<-lm(formula = lamb_ewe_ratio ~ snow_cover_duration + temp + may_temp
 #Summarize model 
 summary(new_lamb_lm)
 
-#Generate model table 
-lm(formula = lamb_ewe_ratio ~ snow_cover_duration + temp + may_temp, 
-   data = lamb_ewe) %>%
-  tidy() %>%
-  kable(caption = "Linear Regression Results")
+#Generate regression table 
+stargazer(new_lamb_lm, title = "Linear Regression Results")
 
+
+## Plots
+
+#Plot relationship between lamb ewe ratio and snow cover duration 
+lamb_snowcoverduration<-ggplot(lamb_ewe, aes(x = snow_cover_duration, y = lamb_ewe_ratio)) +
+  geom_point() +
+  geom_smooth(method=lm, se=FALSE) +
+  labs(x="Snow Cover Duration (mean days)", y = "Lamb EWE Ratio")
+plot(lamb_snowcoverduration)
+
+#Plot relationship between lamb ewe ratio and temperature 
+lamb_temp<-ggplot(lamb_ewe, aes(x = temp, y = lamb_ewe_ratio)) +
+  geom_point() +
+  geom_smooth(method=lm, se=FALSE, col="red") +
+  labs(x="Temperature (Cº)", y = "Lamb EWE Ratio")
+plot(lamb_temp)
+
+#Plot relationship between lamb ewe ratio and may temperature
+lamb_maytemp<-ggplot(lamb_ewe, aes(x = may_temp, y = lamb_ewe_ratio)) +
+  geom_point() +
+  geom_smooth(method=lm, se=FALSE, col="green") +
+  labs(x="May Temperature (Cº)", y = "Lamb EWE Ratio")
+plot(lamb_maytemp)
+
+#Diagnostic Plots 
+par(mfrow = c(2, 2))
+plot(new_lamb_lm)
 

@@ -137,11 +137,11 @@ reproductive success?
 
 For our analysis, we utilized a dataset called the Arctic-Boreal
 Vulnerability Experiment (ABoVE): Dall Sheep Lamb Recruitment and
-Climate Data in Alaska and NW Canada, 2000-2015. We retrieved the data
-from the NASA Earth Data site using their download data tool. We
-downloaded the lamb\_ewe\_ratios\_by\_mountainunit CSV file, which can
-be found on the GitHub Repository, under the ``Raw'' data folder. More
-information about the dataset can be found in Table 1 and 2.
+Climate Data in Alaska and NW Canada, 2000-2015. Data was retrieved from
+the NASA Earth Data site using their download data tool. We downloaded
+the lamb\_ewe\_ratios\_by\_mountainunit CSV file, which can be found on
+the GitHub Repository, under the ``Raw'' data folder. More information
+about the dataset can be found in Table 1 and 2.
 
 This dataset consists of sheep population numbers from state and federal
 monitoring surveys throughout mountain ranges in Alaska and Northwestern
@@ -217,38 +217,49 @@ Lamb ewe ratio & ratio of lambs to female sheep & Double & \\
 
 Table 2: Raw Dataset Information
 
-\#Data Wrangling We first changed the independent variable, year, to a
-date class using the as.Date function. A pipe function was used to
-select the independent variables of interest: mountain unit, year, lamb
-ewe ratio, elevation, snow line elevation, snow disappearance, snow
-cover duration, temp, precipitation, May temperature, and winter
-precipitation. The explanatory variables of latitude, longitude, and
-distance were all removed as mountain unit was the only data necessary
-to analyze location. Sheep density was removed as an independent
-variable, as a large amount of data points were missing from this
-column. The pipe function dropped NA's from the snow line elevation
-column to ensure that all data points were readable. The remaining
-variables included in the processed dataset are included in Table 3.
+\hypertarget{data-wrangling}{%
+\section{Data Wrangling}\label{data-wrangling}}
 
-Processed Dataset: Column name \textbar{} Description \textbar{} Class
-of data \textbar{} Unit ------------- \textbar{} -------------
-\textbar{} ------------- \textbar{} ------------- Mountain unit
-\textbar{} 14 mountain ranges divided into 24 mountain units for the
-study \textbar{} Character \textbar{} Year \textbar{} 2000-2015
-\textbar{} Date \textbar{} Surveys \textbar{} \# of surveys
-\textbar Double \textbar{} Elevation\textbar{} Mean mountain unit
-elevation \textbar{} Double \textbar{} m Snow line elevation \textbar{}
-Elevation on May 15 \textbar{} Double \textbar{} m Snow disappearance
-\textbar{} day of year mean \textbar{} Double \textbar{} Snow cover
-duration \textbar{} mean days \textbar{} Double \textbar{} Temperature
-\textbar{} Annual average temperature for that year \textbar{} Double
-\textbar{} ºC Precipitation \textbar{} total annual precipitation for
-that year \textbar{} Double \textbar{} mm May temperatures \textbar{}
-Average temperature in May for that year \textbar{} Double \textbar{} ºC
-Winter precipitation \textbar{} Total winter (oct-april) precipitation
-preceding lambing season in that year \textbar{} Double \textbar{} mm
-Lamb ewe ratio \textbar{} ratio of lambs to female sheep \textbar{}
-Double \textbar{}
+Firstly, the independent variable, year, was changed to a date class
+using the as.Date function. A pipe function was used to select the
+independent variables of interest: mountain unit, year, lamb ewe ratio,
+elevation, snow line elevation, snow disappearance, snow cover duration,
+temp, precipitation, May temperature, and winter precipitation. The
+explanatory variables of latitude, longitude, and distance were all
+removed as mountain unit was the only data necessary to analyze
+location. Sheep density was removed as an independent variable, as a
+large amount of data points were missing from this column. The pipe
+function dropped NA's from the snow line elevation column to ensure that
+all data points were readable. The remaining variables included in the
+processed dataset are included in Table 3.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.25}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.25}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.25}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.25}}@{}}
+\toprule
+Column name & Description & Class of data & Unit \\
+\midrule
+\endhead
+Mountain unit & 14 mountain ranges divided into 24 mountain units for
+the study & Character & \\
+Year & 2000-2015 & Date & \\
+Surveys & \# of surveys & Double & \\
+Elevation & Mean mountain unit elevation & Double & m \\
+Snow line elevation & Elevation on May 15 & Double & m \\
+Snow disappearance & day of year mean & Double & \\
+Snow cover duration & mean days & Double & \\
+Temperature & Annual average temperature for that year & Double & ºC \\
+Precipitation & total annual precipitation for that year & Double &
+mm \\
+May temperatures & Average temperature in May for that year & Double &
+ºC \\
+Winter precipitation & Total winter (oct-april) precipitation preceding
+lambing season in that Year & Double & mm \\
+Lamb ewe ratio & ratio of lambs to female sheep & Double & \\
+\bottomrule
+\end{longtable}
 
 Table 3: Processed Dataset Information
 
@@ -257,14 +268,14 @@ Table 3: Processed Dataset Information
 \hypertarget{exploratory-analysis}{%
 \section{Exploratory Analysis}\label{exploratory-analysis}}
 
-After wrangling the dataset, we created the ``Processed'' datafile. With
-our variables of interest, we created a scatterplot matrix to identify
-patterns within the data. The scatterplot matrix (Figure 1) allows us a
-better visualization of the relationships within the dataset. To check
-the dataset for normality, a Shapiro-Wilk test was performed and did not
-indicate evidence of non-normality (W= 0.99606, p=0.9154). Therefore, we
-fail to reject the null hypothesis that states the variables are
-normally distributed.
+The wrangled ``Processed'' datafile was used for the rest of the
+investigation. The variables of interest were used to create a
+scatterplot matrix to identify patterns within the data. The scatterplot
+matrix (Figure 1) allows for a better visualization of the relationships
+within the dataset. To check the dataset for normality, a Shapiro-Wilk
+test was performed and did not indicate evidence of non-normality (W=
+0.99606, p=0.9154). Therefore, we fail to reject the null hypothesis
+that states the variables are normally distributed.
 
 For further analysis, we plotted time against the dependent variable,
 lamb EWE ratio (Figure 2), and plotted a histogram of lamb EWE ratio
@@ -291,29 +302,8 @@ the summary statistics for Lamb EWE ratio (Table 3 and 4).
 \caption{Histogram of Lamb EWE Ratio}
 \end{figure}
 
-\begin{verbatim}
-## Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning Inf
-
-## Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning Inf
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning -Inf
-
-## Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning -Inf
-\end{verbatim}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.22}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.05}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.04}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.14}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.13}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.09}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.10}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.10}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.12}}@{}}
-\caption{Table 4:Summary Statistics of Lamb Dataset}\tabularnewline
+\begin{longtable}[]{@{}lrrrrrrrr@{}}
+\caption{Summary Statistics of Lamb Dataset}\tabularnewline
 \toprule
 & vars & n & mean & sd & min & max & range & se \\
 \midrule
@@ -324,29 +314,27 @@ the summary statistics for Lamb EWE ratio (Table 3 and 4).
 \endhead
 mountain\_unit & 1 & 185 & NaN & NA & Inf & -Inf & -Inf & NA \\
 year & 2 & 185 & NaN & NA & Inf & -Inf & -Inf & NA \\
-lamb\_ewe\_ratio & 3 & 185 & 0.2825135 & 0.1067934 & 0.000 & 0.555 &
-0.555 & 0.0078516 \\
-elevation & 4 & 185 & 1086.3751243 & 368.8738171 & 496.442 & 1852.819 &
-1356.377 & 27.1201424 \\
-snow\_line\_elevation & 5 & 185 & 800.0012432 & 486.9143092 & 0.000 &
-1922.125 & 1922.125 & 35.7986520 \\
-snow\_disappearance & 6 & 185 & 138.2156000 & 11.1754765 & 111.319 &
-169.015 & 57.696 & 0.8216374 \\
-snow\_cover\_duration & 7 & 185 & 0.5936703 & 0.0909945 & 0.417 & 0.830
-& 0.413 & 0.0066901 \\
-temp & 8 & 185 & -3.9384108 & 3.0902623 & -10.489 & 4.606 & 15.095 &
-0.2272006 \\
-precip & 9 & 185 & 188.6173189 & 169.3793379 & 30.743 & 725.153 &
-694.410 & 12.4530166 \\
-may\_temp & 10 & 185 & 3.3103568 & 2.9746230 & -5.690 & 9.779 & 15.469 &
-0.2186986 \\
-winter\_precip & 11 & 185 & 160.8487784 & 180.6469450 & 16.419 & 738.344
-& 721.925 & 13.2814275 \\
+lamb\_ewe\_ratio & 3 & 185 & 0 & 0.107 & 0.000 & 0.555 & 0.555 &
+0.008 \\
+elevation & 4 & 185 & 1086 & 368.874 & 496.442 & 1852.819 & 1356.377 &
+27.120 \\
+snow\_line\_elevation & 5 & 185 & 800 & 486.914 & 0.000 & 1922.125 &
+1922.125 & 35.799 \\
+snow\_disappearance & 6 & 185 & 138 & 11.175 & 111.319 & 169.015 &
+57.696 & 0.822 \\
+snow\_cover\_duration & 7 & 185 & 1 & 0.091 & 0.417 & 0.830 & 0.413 &
+0.007 \\
+temp & 8 & 185 & -4 & 3.090 & -10.489 & 4.606 & 15.095 & 0.227 \\
+precip & 9 & 185 & 189 & 169.379 & 30.743 & 725.153 & 694.410 &
+12.453 \\
+may\_temp & 10 & 185 & 3 & 2.975 & -5.690 & 9.779 & 15.469 & 0.219 \\
+winter\_precip & 11 & 185 & 161 & 180.647 & 16.419 & 738.344 & 721.925 &
+13.281 \\
 \bottomrule
 \end{longtable}
 
 \begin{longtable}[]{@{}rrrr@{}}
-\caption{Table 5: Lamb EWE Ratio: Summary Table}\tabularnewline
+\caption{Lamb EWE Ratio: Summary Table}\tabularnewline
 \toprule
 mean.ratio & minimum.ratio & maximum.ratio & sd.ratio \\
 \midrule
@@ -395,51 +383,78 @@ upwards. The relationship between these two variables is noticeably more
 significant in this plot than for the plot comparing lamb ewe ratio and
 snow cover duration (Figure 4).
 
-\begin{longtable}[]{@{}lrrrr@{}}
-\caption{Table 5: Linear Regression Results}\tabularnewline
-\toprule
-term & estimate & std.error & statistic & p.value \\
-\midrule
-\endfirsthead
-\toprule
-term & estimate & std.error & statistic & p.value \\
-\midrule
-\endhead
-(Intercept) & -0.0143460 & 0.0860449 & -0.1667264 & 0.8677715 \\
-snow\_cover\_duration & 0.2936781 & 0.1076651 & 2.7276987 & 0.0070060 \\
-temp & -0.0137539 & 0.0042377 & -3.2456331 & 0.0013961 \\
-may\_temp & 0.0206453 & 0.0050624 & 4.0781286 & 0.0000679 \\
-\bottomrule
-\end{longtable}
+After selecting the model, it was crucial to check whether it fit the
+assumptions of a linear regression. The assumptions were checked using
+the diagnostic plots of the final model (Figure 7). The first plot,
+``Residuals vs Fitted'' is used to check whether there is a linear
+relationship/linearity. As the red line does not severely depart from
+the horizontal dotted line, this assumption is met. To determine whether
+the residuals are normally distributed, the ``Normal Q-Q'' plot is
+examined. This plot indicates that the residuals are normally
+distributed as the points tend to follow the straight line. The
+``Scale-Location'' plot is used to determine whether the model meets the
+assumption of homoscedasticity (equal variance of residuals). As the
+residuals are spread randomly along the horizontal line, the assumption
+is fulfilled. Lastly, to check that there are no influential values in
+the dataset, the ``Residuals vs Leverage'' plot is examined. While there
+are some points that appear to be distanced from the majority of the
+points, they do not fall outside Cook's distance - indicating that there
+are no influential points.
 
-\begin{verbatim}
-## `geom_smooth()` using formula 'y ~ x'
-\end{verbatim}
+\% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy
+Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Wed, Apr
+20, 2022 - 00:48:59
+
+\begin{table}[!htbp] \centering 
+  \caption{Linear Regression Results} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & lamb\_ewe\_ratio \\ 
+\hline \\[-1.8ex] 
+ snow\_cover\_duration & 0.294$^{***}$ \\ 
+  & (0.108) \\ 
+  & \\ 
+ temp & $-$0.014$^{***}$ \\ 
+  & (0.004) \\ 
+  & \\ 
+ may\_temp & 0.021$^{***}$ \\ 
+  & (0.005) \\ 
+  & \\ 
+ Constant & $-$0.014 \\ 
+  & (0.086) \\ 
+  & \\ 
+\hline \\[-1.8ex] 
+Observations & 185 \\ 
+R$^{2}$ & 0.084 \\ 
+Adjusted R$^{2}$ & 0.069 \\ 
+Residual Std. Error & 0.103 (df = 181) \\ 
+F Statistic & 5.566$^{***}$ (df = 3; 181) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
 
 \begin{figure}
 \centering
 \includegraphics{Final-Report_files/figure-latex/unnamed-chunk-7-1.pdf}
-\caption{Relationship between lamb ewe ratio and snow cover duration}
+\caption{Relationship between lamb EWE ratio and snow cover duration}
 \end{figure}
-
-\begin{verbatim}
-## `geom_smooth()` using formula 'y ~ x'
-\end{verbatim}
 
 \begin{figure}
 \centering
 \includegraphics{Final-Report_files/figure-latex/unnamed-chunk-8-1.pdf}
-\caption{Relationship between lamb ewe ratio and temperature (Cº)}
+\caption{Relationship between lamb EWE ratio and temperature (Cº)}
 \end{figure}
-
-\begin{verbatim}
-## `geom_smooth()` using formula 'y ~ x'
-\end{verbatim}
 
 \begin{figure}
 \centering
 \includegraphics{Final-Report_files/figure-latex/unnamed-chunk-9-1.pdf}
-\caption{Relationship between lamb ewe ratio and may temperature (Cº)}
+\caption{Relationship between lamb EWE ratio and may temperature (Cº)}
 \end{figure}
 
 \begin{figure}

@@ -14,12 +14,11 @@ summary(lamb_ewe)
 
 #Creating Summary Table for Lamb Data
 total_summary_lamb<-describe(lamb_ewe, fast = TRUE)
-knitr::kable(total_summary_lamb, caption = "Summary Statistics of Lamb Dataset")
+knitr::kable(total_summary_lamb, caption = "Summary Statistics of Lamb Dataset", digits = c(0, 0, 0, 3, 3, 3, 3, 3, 3))
 
 #Creating Smaller Summary Table for Lamb EWE Ratio
 summary_lambratio <- lamb_ewe %>%
   summarise(mean.ratio=mean(lamb_ewe_ratio), minimum.ratio=min(lamb_ewe_ratio), maximum.ratio=max(lamb_ewe_ratio), sd.ratio=sd(lamb_ewe_ratio))
-
 knitr::kable(summary_lambratio, caption = "Lamb EWE Ratio: Summary Table")
 
 
@@ -29,9 +28,12 @@ plot(lamb_ewe)
 #Check for normality
 shapiro.test(lamb_ewe$lamb_ewe_ratio)
 
+## PLOTS
+
 #Plot lamb EWE ratio against time 
 explorelambewe<-ggplot(lamb_ewe, aes(x = year, y = lamb_ewe_ratio)) +
   geom_point() +
+  geom_smooth(method=lm, se=FALSE, col="green") +
   labs(x="Time", y = "Lamb EWE Ratio")
 
 plot(explorelambewe)
