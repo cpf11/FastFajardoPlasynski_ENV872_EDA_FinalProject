@@ -1,6 +1,6 @@
 ---
 title: "Dall sheep reproductive success in Alaska and NW Canada"
-author: 'Marisa Fajardo, Clara Fast, and Julia Plasynski '
+author: 'Marisa Fajardo, Clara Fast, and Julia Plasynski'
 output:
   pdf_document:
     keep_tex: yes
@@ -146,10 +146,18 @@ summary_lambratio <- lamb_ewe %>%
 
 knitr::kable(summary_lambratio, caption = "Table 4: Lamb EWE Ratio: Summary Table")
 ```
+
 \newpage
 
 # Analysis
 
+The best model, as chosen by AIC in a stepwise algorithm, included the following explanatory variables: snow cover duration, temperature, and May temperature. The final model indicates that about 7% (adjusted r-squared=0.06929) of the variation in the dependent variable is explained by the independent variables. As indicated by the F-statistic, the variables in the model are significantly different from 0, demonstrating that the linear regression model fits the data better than a model without any explanatory variables (Table 5). 
+
+The three explanatory variables were all statistically significant in the final model, indicating that they have a statistically significant effect on lamb ewe ratio. With a one unit increase in snow cover duration, lamb ewe ratio increased by 0.293678 (snow cover duration: estimate = 0.293678, p = 0.86777) (Table 5). This slight positive relationship between lamb ewe ratio and snow cover duration is visible in the plot, with the line of best fit sloping upwards (Figure 4). 
+
+With a one unit increase in temperature, lamb ewe ratio decreased by 0.013754 (temperature: estimate = -0.013754, p = 0.00140) (Table 5). Given that this negative relationship between the two variables is very slight, the line of best fit does not demonstrate this negative relationship and instead appears to be a plateau (Figure 5). 
+
+With a one unit increase in May temperature, lamb ewe ratio increased by 0.020645 (May temperature: estimate = 0.020645, p = 6.79e-05) (Table 5). This positive relationship between lamb ewe ratio and May temperature is visible in the plot (Figure 5), with the line of best fit sloping upwards. The relationship between these two variables is noticeably more significant in this plot than for the plot comparing lamb ewe ratio and snow cover duration (Figure 4). 
 ```{r include = FALSE}
 #Create preliminary GLM 
 lamb_lm <- lm(data = lamb_ewe, lamb_ewe_ratio ~ year + elevation + snow_line_elevation + 
@@ -170,15 +178,15 @@ summary(new_lamb_lm)
 ```
 
 ```{r echo = FALSE}
-#Generate summary table of regression results 
+#Generate summary table of regression results #Table 5 
 lm(formula = lamb_ewe_ratio ~ snow_cover_duration + temp + may_temp, 
    data = lamb_ewe) %>%
   tidy() %>%
-  kable(caption = "Linear Regression Results")
+  kable(caption = "Table 5: Linear Regression Results")
 ```
 
 ```{r echo = FALSE, fig.cap="Relationship between lamb ewe ratio and snow cover duration"}
-#Plot relationship between lamb ewe ratio and snow cover duration
+#Plot relationship between lamb ewe ratio and snow cover duration #Figure 4 
 lamb_snowcoverduration<-ggplot(lamb_ewe, aes(x = snow_cover_duration, y = lamb_ewe_ratio)) +
   geom_point() +
   geom_smooth(method=lm, se=FALSE) +
@@ -187,7 +195,7 @@ plot(lamb_snowcoverduration)
 ```
 
 ```{r echo=FALSE, fig.cap="Relationship between lamb ewe ratio and temperature (Cº)"}
-#Plot relationship between lamb ewe ratio and temperature
+#Plot relationship between lamb ewe ratio and temperature #Figure 5
 lamb_temp<-ggplot(lamb_ewe, aes(x = temp, y = lamb_ewe_ratio)) +
   geom_point() +
   geom_smooth(method=lm, se=FALSE, col="red") +
@@ -196,7 +204,7 @@ plot(lamb_temp)
 ```
 
 ```{r echo=FALSE, fig.cap="Relationship between lamb ewe ratio and may temperature (Cº)"}
-#Plot relationship between lamb ewe ratio and may temperature
+#Plot relationship between lamb ewe ratio and may temperature #Figure 6 
 lamb_maytemp<-ggplot(lamb_ewe, aes(x = may_temp, y = lamb_ewe_ratio)) +
   geom_point() +
   geom_smooth(method=lm, se=FALSE, col="green") +
@@ -205,7 +213,7 @@ plot(lamb_maytemp)
 ```
 
 ```{r fig.cap="Diagnostic plots of final model", echo = FALSE}
-#Diagnostic Plots 
+#Diagnostic Plots #Figure 7 
 par(mfrow = c(2, 2))
 plot(new_lamb_lm)
 ```
